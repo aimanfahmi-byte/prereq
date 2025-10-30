@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prerequisite Management</title>
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ===== Remove spinner arrows from number input ===== */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield; /* Firefox */
+    }
+  </style>
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="text-primary fw-semibold mb-0">Prerequisite Management</h3>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
+          <button id="addBtn" class="btn btn-primary">
+            <i class="fa fa-plus me-1"></i> Add Record
+          </button>
+
+          <div class="ms-auto d-flex align-items-center gap-2">
+            <input id="searchInput" type="text" class="form-control form-control-sm me-2" placeholder="Search..." />
+            <button id="pdfBtn" class="btn btn-outline-danger btn-sm">
+              <i class="fa fa-file"></i>
+            </button>
+            <button id="excelBtn" class="btn btn-outline-success btn-sm">
+              <i class="fa fa-file-excel"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive-lg">
+          <table id="dataTable" class="table table-hover align-middle text-center mb-0">
+            <thead class="table-head-light">
+              <tr>
+                <th style="width: 56px;">No.</th>
+                <th>Faculty</th>
+                <th>Type of Study</th>
+                <th>Level of Study</th>
+                <th>Programme</th>
+                <th>Min Credit Hours</th>
+                <th>Status</th>
+                <th style="width: 140px;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" class="table-body-light"></tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end align-items-center mt-4 gap-2">
+          <button id="prevBtn" class="btn btn-outline-primary btn-sm">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <select id="rowsPerPage" class="form-select form-select-sm w-auto">
+            <option value="3" selected>3 rows</option>
+            <option value="5">5 rows</option>
+            <option value="10">10 rows</option>
+          </select>
+          <button id="nextBtn" class="btn btn-outline-primary btn-sm">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Record Modal (NEW, separate from Edit) -->
+  <div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center gap-2">
+            <h5 class="modal-title mb-0">Add Record</h5>
+          </div>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addForm">
+            <div class="mb-3">
+              <label for="addFaculty" class="form-label">Faculty</label>
+              <select id="addFaculty" class="form-select" required></select>
+            </div>
+            <div class="mb-3 row gx-2">
+              <div class="col-12 col-md-6">
+                <label for="addStudy" class="form-label">Type of Study</label>
+                <select id="addStudy" class="form-select" required></select>
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="addLevel" class="form-label">Level of Study</label>
+                <select id="addLevel" class="form-select" required></select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="addProgramme" class="form-label">Programme</label>
+              <select id="addProgramme" class="form-select" required></select>
+            </div>
+
+            <div class="mb-3 row gx-2">
+              <div class="col-6">
+                <label for="addCredit" class="form-label">Min Credit Hours</label>
+                <input type="number" id="addCredit" class="form-control" readonly />
+              </div>
+              <div class="col-6">
+                <label for="addStatus" class="form-label">Status</label>
+                <select id="addStatus" class="form-select" required></select>
+              </div>
+            </div>
+
+            <!-- Add modal courses controls -->
+            <div class="d-flex align-items-center justify-content-start gap-2 mb-2">
+              <div class="input-group input-group-sm w-auto">
+                <button id="add_AddCoursesBtn" type="button" class="btn btn-outline-primary">
+                  <i class="fa fa-plus me-1"></i> Add
+                </button>
+                <select id="add_AddCoursesSelect" class="form-select form-select-sm">
+                  <!-- options populated dynamically -->
+                </select>
+              </div>
+              <small class="text-muted">Add default course list for selected programme</small>
+            </div>
+
+            <div class="table-responsive mb-3">
+              <table id="addCoursesTable" class="table table-sm table-bordered mb-0 text-start">
+                <thead>
+                  <tr>
+                    <th style="width:48px">No</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th style="width:110px">Credit Hour</th>
+                    <th style="width:70px">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="addCoursesBody"></tbody>
+              </table>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Record Modal (separate, used by pen icon) -->
+  <div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-dark d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center gap-2">
+            <h5 class="modal-title mb-0">Edit Record</h5>
+          </div>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editForm">
+            <input type="hidden" id="editIndex" />
+            <div class="mb-3">
+              <label for="editFaculty" class="form-label">Faculty</label>
+              <select id="editFaculty" class="form-select" required></select>
+            </div>
+            <div class="mb-3 row gx-2">
+              <div class="col-12 col-md-6">
+                <label for="editStudy" class="form-label">Type of Study</label>
+                <select id="editStudy" class="form-select" required></select>
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="editLevel" class="form-label">Level of Study</label>
+                <select id="editLevel" class="form-select" required></select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="editProgramme" class="form-label">Programme</label>
+              <select id="editProgramme" class="form-select" required></select>
+            </div>
+
+            <div class="mb-3 row gx-2">
+              <div class="col-6">
+                <label for="editCredit" class="form-label">Min Credit Hours</label>
+                <input type="number" id="editCredit" class="form-control" readonly />
+              </div>
+              <div class="col-6">
+                <label for="editStatus" class="form-label">Status</label>
+                <select id="editStatus" class="form-select" required></select>
+              </div>
+            </div>
+
+            <!-- Edit modal courses controls -->
+            <div class="d-flex align-items-center justify-content-start gap-2 mb-2">
+              <div class="input-group input-group-sm w-auto">
+                <button id="edit_AddCoursesBtn" type="button" class="btn btn-outline-primary">
+                  <i class="fa fa-plus me-1"></i> Add
+                </button>
+                <select id="edit_AddCoursesSelect" class="form-select form-select-sm">
+                  <!-- options populated dynamically -->
+                </select>
+              </div>
+              <small class="text-muted">Add default course list for selected programme</small>
+            </div>
+
+            <div class="table-responsive mb-3">
+              <table id="editCoursesTable" class="table table-sm table-bordered mb-0 text-start">
+                <thead>
+                  <tr>
+                    <th style="width:48px">No</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th style="width:110px">Credit Hour</th>
+                    <th style="width:70px">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="editCoursesBody"></tbody>
+              </table>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-warning">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Modal -->
+  <div class="modal fade" id="viewModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">View Record</h5>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table table-bordered mb-3">
+              <tbody id="viewDetails"></tbody>
+            </table>
+          </div>
+
+          <div id="viewCoursesWrap" class="table-responsive">
+            <h6>Courses</h6>
+            <table id="viewCoursesTable" class="table table-sm table-bordered mb-0">
+              <thead>
+                <tr><th style="width:48px">No</th><th>Course Code</th><th>Course Name</th><th style="width:110px">Credit Hour</th></tr>
+              </thead>
+              <tbody id="viewCoursesBody"></tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title">Confirm Delete</h5>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p class="mb-3">Are you sure you want to delete this record?</p>
+          <div class="d-flex justify-content-center gap-2">
+            <button id="confirmDeleteBtn" class="btn btn-danger">Yes</button>
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert">
+      <div class="d-flex">
+        <div class="toast-body"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

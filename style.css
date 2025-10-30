@@ -1,0 +1,141 @@
+/* prereq/style.css - follow style A (airier, lighter) */
+
+:root{
+  --card-bg: #ffffff;
+  --page-bg: #f8fbff;
+  --head-bg: #eaf6ff;
+  --muted: #6c757d;
+  --accent: #0d6efd;
+}
+
+html,body{
+  height:100%;
+}
+
+body {
+  background-color: var(--page-bg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #212529;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Card container */
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 0;
+}
+
+/* Header */
+h3.text-primary {
+  color: var(--accent);
+  font-size: 1.4rem;
+  letter-spacing: -0.2px;
+}
+
+/* Table styling - lighter, airy */
+.table {
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.table thead.table-head-light th {
+  background: var(--head-bg);
+  color: #0b5ed7;
+  border: none;
+  font-weight: 600;
+  padding: 14px 12px;
+  vertical-align: middle;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.table tbody tr {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(13,110,253,0.03);
+}
+
+.table tbody td {
+  border: none;
+  padding: 12px;
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+/* Make first column count stand out */
+.table tbody td.fw-medium {
+  font-weight: 600;
+}
+
+/* Hover effect */
+.table tbody tr:hover {
+  transform: translateY(-1px);
+  transition: all 120ms ease-in;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+}
+
+/* Compact header on small screens */
+@media (max-width: 575px) {
+  .table thead.table-head-light th {
+    font-size: 0.85rem;
+    padding: 10px 8px;
+  }
+  .table tbody td { padding: 10px 8px; font-size: 0.9rem; }
+}
+
+/* Buttons spacing */
+.btn i { vertical-align: middle; }
+
+/* Forms focus */
+input:focus, select:focus, textarea:focus {
+  border-color: rgba(13,110,253,0.6);
+  box-shadow: 0 0 0 4px rgba(13,110,253,0.06);
+  outline: none;
+}
+
+/* Toast stacking */
+.toast-container {
+  z-index: 2200;
+}
+
+/* Modal aesthetics */
+.modal-content {
+  border-radius: 12px;
+}
+
+/* Small utility tweaks */
+.text-start { text-align: left !important; }
+.d-flex .btn { height: 36px; }
+
+/* Badges */
+.badge {
+  font-weight: 600;
+  padding: 0.45em 0.6em;
+  border-radius: 0.5rem;
+}
+
+/* Make action buttons compact */
+.table .btn-sm {
+  padding: 6px 8px;
+  font-size: 0.85rem;
+}
+
+/* Table responsive wrapper */
+.table-responsive-lg {
+  margin-bottom: 6px;
+}
+
+/* modal course table tweaks */
+#coursesTable input.form-control {
+  height: calc(1.5em + 0.5rem + 2px);
+  padding: 0.2rem 0.4rem;
+}
+
+#addCoursesBtn { min-width: 68px; }
+#addCoursesSelect { min-width: 320px; }
+#viewCoursesWrap { margin-top: 1rem; }
+
+/* ensure modal large spacing for courses table */
+.modal-dialog.modal-lg { max-width: 920px; }

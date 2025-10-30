@@ -1,0 +1,7 @@
+"Add Record" button
+    - user boleh add new record dan akan disimpan di javascript bagi mock up ini.
+    - data tidak akan hilang walupun refresh.
+
+"Reset Data" button
+    - ada di luar widget.
+    - untuk developer reset data asal semula.
