@@ -55,4 +55,4 @@
 >> Pagination & Search
 -Search filters table results in real-time.
 -Pagination controls include previous/next and rows per page selector.
--Default display is 3, 5, 10 rows per page.
+-Default display is 5, 10, 15 rows per page.
