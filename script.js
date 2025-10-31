@@ -1,5 +1,8 @@
 // prereq/script.js
 document.addEventListener("DOMContentLoaded", () => {
+  /* ===========================
+     Data / Defaults / Mappings
+     =========================== */
   let data = [];
 
   // mapping of programme => default courses (array of {code,name,credit})
@@ -25,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Kesusasteraan Melayu (Kesusasteraan Melayu)": [
       { code: "BBK3102", name: "Sejarah Kesusasteraan Melayu", credit: 3 },
       { code: "BBK3305", name: "Kesusasteraan Rakyat Melayu", credit: 3 },
-      { code: "BBK3214", name: "Sastera Kanak-Kanak Dan Remaia", credit: 3 },
+      { code: "BBK3214", name: "Sastera Kanak-Kanak Dan Remaja", credit: 3 },
       { code: "BBK3210", name: "Teori Kesusasteraan", credit: 3 },
       { code: "BBK3212", name: "Kritikan Dalam Kesusasteraan Melayu", credit: 3 },
       { code: "BBK3310", name: "Kesusasteraan Epik Dan Histografi Melayu", credit: 3 },
@@ -34,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Bahasa Inggeris
     "Bahasa Inggeris (Bahasa Inggeris)": [
       { code: "BBI3201", name: "General Linguistics", credit: 3 },
-      { code: "BBI3212", name: "Enalish Syntax And Morpholoav", credit: 3 },
-      { code: "BBI3202", name: "English Phonetics And Phonoloay", credit: 3 },
+      { code: "BBI3212", name: "English Syntax And Morphology", credit: 3 },
+      { code: "BBI3202", name: "English Phonetics And Phonology", credit: 3 },
       { code: "BBI3102", name: "Language Evolution And Change", credit: 3 },
       { code: "BBI3227", name: "Language And Mind", credit: 3 },
       { code: "BBI3219", name: "Semantics And Pragmatics", credit: 3 },
@@ -44,54 +47,85 @@ document.addEventListener("DOMContentLoaded", () => {
     // Kesusasteraan Inggeris
     "Kesusasteraan Inggeris (Kesusasteraan Inggeris)": [
       { code: "BBL3101", name: "Survey And Prose Forms", credit: 3 },
-      { code: "BBL3404", name: "Analysina Novels And Short Stories", credit: 3 },
+      { code: "BBL3404", name: "Analysing Novels And Short Stories", credit: 3 },
       { code: "BBL3405", name: "Writing About Literature", credit: 3 },
-      { code: "BBL3406", name: "Analysina Poetry And Drama", credit: 3 },
-      { code: "BBL3101", name: "Introduction To The History Of English Literature", credit: 3 },
+      { code: "BBL3406", name: "Analysing Poetry And Drama", credit: 3 },
+      { code: "BBL3102", name: "Introduction To The History Of English Literature", credit: 3 },
       { code: "BBL3228", name: "Issues And Approaches In Contemporary Literary Theory", credit: 3 },
     ],
   };
 
   const defaultData = [
-    { faculty: "Faculty of Modern Language and Communication", study: "Research", level: "Master", programme: "Bahasa Melayu (Bahasa Melayu)", credit: 9, status: "Active", courses: programmeCourses["Bahasa Melayu (Bahasa Melayu)"] || [] },
-    { faculty: "Faculty of Modern Language and Communication", study: "Research", level: "PhD", programme: "Bahasa Melayu (Pengajian Wacana)", credit: 9, status: "Active", courses: programmeCourses["Bahasa Melayu (Pengajian Wacana)"] || [] },
-    { faculty: "Faculty of Modern Language and Communication", study: "Research", level: "Master", programme: "Bahasa Melayu (Linguistik Bandingan Terapan)", credit: 9, status: "Active", courses: programmeCourses["Bahasa Melayu (Linguistik Bandingan Terapan)"] || [] },
-    { faculty: "Faculty of Modern Language and Communication", study: "Research", level: "PhD", programme: "Kesusasteraan Melayu (Kesusasteraan Melayu)", credit: 18, status: "Active", courses: programmeCourses["Kesusasteraan Melayu (Kesusasteraan Melayu)"] || [] },
-    { faculty: "Faculty of Modern Language and Communication", study: "Research", level: "Master", programme: "Bahasa Inggeris (Bahasa Inggeris)", credit: 18, status: "Inactive", courses: programmeCourses["Bahasa Inggeris (Bahasa Inggeris)"] || [] },
-    { faculty: "Faculty of Modern Language and Communication", study: "Research", level: "PhD", programme: "Kesusasteraan Inggeris (Kesusasteraan Inggeris)", credit: 18, status: "Active", courses: programmeCourses["Kesusasteraan Inggeris (Kesusasteraan Inggeris)"] || [] },
+    {
+      faculty: "Faculty of Modern Language and Communication",
+      study: "Research",
+      level: "Master",
+      programme: "Bahasa Melayu (Bahasa Melayu)",
+      credit: 9,
+      status: "Active",
+      courses: programmeCourses["Bahasa Melayu (Bahasa Melayu)"] || [],
+    },
+    {
+      faculty: "Faculty of Modern Language and Communication",
+      study: "Research",
+      level: "PhD",
+      programme: "Bahasa Melayu (Pengajian Wacana)",
+      credit: 9,
+      status: "Active",
+      courses: programmeCourses["Bahasa Melayu (Pengajian Wacana)"] || [],
+    },
+    {
+      faculty: "Faculty of Modern Language and Communication",
+      study: "Research",
+      level: "Master",
+      programme: "Bahasa Melayu (Linguistik Bandingan Terapan)",
+      credit: 9,
+      status: "Active",
+      courses: programmeCourses["Bahasa Melayu (Linguistik Bandingan Terapan)"] || [],
+    },
+    {
+      faculty: "Faculty of Modern Language and Communication",
+      study: "Research",
+      level: "PhD",
+      programme: "Kesusasteraan Melayu (Kesusasteraan Melayu)",
+      credit: 18,
+      status: "Active",
+      courses: programmeCourses["Kesusasteraan Melayu (Kesusasteraan Melayu)"] || [],
+    },
+    {
+      faculty: "Faculty of Modern Language and Communication",
+      study: "Research",
+      level: "Master",
+      programme: "Bahasa Inggeris (Bahasa Inggeris)",
+      credit: 18,
+      status: "Inactive",
+      courses: programmeCourses["Bahasa Inggeris (Bahasa Inggeris)"] || [],
+    },
+    {
+      faculty: "Faculty of Modern Language and Communication",
+      study: "Research",
+      level: "PhD",
+      programme: "Kesusasteraan Inggeris (Kesusasteraan Inggeris)",
+      credit: 18,
+      status: "Active",
+      courses: programmeCourses["Kesusasteraan Inggeris (Kesusasteraan Inggeris)"] || [],
+    },
   ];
 
-  // ===== Data Handling =====
-  function loadData() {
-    const stored = localStorage.getItem("prereqData");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          data = parsed;
-        } else {
-          data = [...defaultData];
-          saveData();
-        }
-      } catch {
-        data = [...defaultData];
-        saveData();
-      }
-    } else {
-      data = [...defaultData];
-      saveData();
-    }
-  }
+  // Build programmeDefaults map from defaultData for easy lookup
+  const programmeDefaults = defaultData.reduce((acc, rec) => {
+    acc[rec.programme] = {
+      faculty: rec.faculty,
+      study: rec.study,
+      level: rec.level,
+      credit: rec.credit,
+      status: rec.status,
+      courses: Array.isArray(rec.courses) ? rec.courses.map(c => ({ ...c })) : [],
+    };
+    return acc;
+  }, {});
 
-  function saveData() {
-    try {
-      localStorage.setItem("prereqData", JSON.stringify(data));
-    } catch (e) {
-      console.warn("Failed to save data:", e);
-    }
-  }
-
-  // ===== Faculty → Programme Mapping =====
+  // Faculty -> programmes
   const facultyProgrammes = {
     "Faculty of Modern Language and Communication": [
       "Bahasa Melayu (Bahasa Melayu)",
@@ -99,78 +133,90 @@ document.addEventListener("DOMContentLoaded", () => {
       "Bahasa Melayu (Linguistik Bandingan Terapan)",
       "Kesusasteraan Melayu (Kesusasteraan Melayu)",
       "Bahasa Inggeris (Bahasa Inggeris)",
-      "Kesusasteraan Inggeris (Kesusasteraan Inggeris)"
+      "Kesusasteraan Inggeris (Kesusasteraan Inggeris)",
     ],
   };
 
-  // ===== Programme → Default Credit Mapping =====
-  const programmeCredits = {
-    "Bahasa Melayu (Bahasa Melayu)": 9,
-    "Bahasa Melayu (Pengajian Wacana)": 9,
-    "Bahasa Melayu (Linguistik Bandingan Terapan)": 9,
-    "Kesusasteraan Melayu (Kesusasteraan Melayu)": 18,
-    "Bahasa Inggeris (Bahasa Inggeris)": 18,
-    "Kesusasteraan Inggeris (Kesusasteraan Inggeraan)": 18,
-    "Kesusasteraan Inggeris (Kesusasteraan Inggeris)": 18,
-  };
+  // Programme -> credit quick map (kept for backward compat)
+  const programmeCredits = Object.fromEntries(
+    Object.entries(programmeDefaults).map(([k, v]) => [k, v.credit])
+  );
 
-  // ===== UI Elements (global) =====
-  const tableBody = document.getElementById("tableBody");
-  const searchInput = document.getElementById("searchInput");
-  const rowsPerPageSelect = document.getElementById("rowsPerPage");
-  const prevBtn = document.getElementById("prevBtn");
-  const nextBtn = document.getElementById("nextBtn");
+  /* ===========================
+     DOM references (defensive)
+     =========================== */
+  const q = (id) => document.getElementById(id);
 
-  // Add modal elements prefix: add_
-  const addModalEl = document.getElementById("addModal");
-  const addFaculty = document.getElementById("addFaculty");
-  const addStudy = document.getElementById("addStudy");
-  const addLevel = document.getElementById("addLevel");
-  const addProgramme = document.getElementById("addProgramme");
-  const addCredit = document.getElementById("addCredit");
-  const addStatus = document.getElementById("addStatus");
-  const add_AddCoursesBtn = document.getElementById("add_AddCoursesBtn");
-  const add_AddCoursesSelect = document.getElementById("add_AddCoursesSelect");
-  const addCoursesBody = document.getElementById("addCoursesBody");
-  const addForm = document.getElementById("addForm");
+  // table + search + pagination controls
+  const tableBody = q("tableBody");
+  const searchInput = q("searchInput");
+  const rowsPerPageSelect = q("rowsPerPage");
+  const prevBtn = q("prevBtn");
+  const nextBtn = q("nextBtn");
 
-  // Edit modal elements prefix: edit_
-  const editModalEl = document.getElementById("editModal");
-  const editFaculty = document.getElementById("editFaculty");
-  const editStudy = document.getElementById("editStudy");
-  const editLevel = document.getElementById("editLevel");
-  const editProgramme = document.getElementById("editProgramme");
-  const editCredit = document.getElementById("editCredit");
-  const editStatus = document.getElementById("editStatus");
-  const edit_AddCoursesBtn = document.getElementById("edit_AddCoursesBtn");
-  const edit_AddCoursesSelect = document.getElementById("edit_AddCoursesSelect");
-  const editCoursesBody = document.getElementById("editCoursesBody");
-  const editForm = document.getElementById("editForm");
-  const editIndexInput = document.getElementById("editIndex");
+  // ADD modal elements
+  const addModalEl = q("addModal");
+  const addFaculty = q("addFaculty");
+  const addStudy = q("addStudy");
+  const addLevel = q("addLevel");
+  const addProgramme = q("addProgramme");
+  const addCredit = q("addCredit");
+  const addStatus = q("addStatus");
+  const add_AddCoursesBtn = q("add_AddCoursesBtn");
+  const add_AddCoursesSelect = q("add_AddCoursesSelect");
+  const addCoursesBody = q("addCoursesBody");
+  const addForm = q("addForm");
 
-  // View / Delete / Toast
-  const viewModalEl = document.getElementById("viewModal");
-  const deleteModalEl = document.getElementById("deleteModal");
-  const viewModal = new bootstrap.Modal(viewModalEl);
-  const addModal = new bootstrap.Modal(addModalEl);
-  const editModal = new bootstrap.Modal(editModalEl);
-  const deleteModal = new bootstrap.Modal(deleteModalEl);
+  // EDIT modal elements
+  const editModalEl = q("editModal");
+  const editFaculty = q("editFaculty");
+  const editStudy = q("editStudy");
+  const editLevel = q("editLevel");
+  const editProgramme = q("editProgramme");
+  const editCredit = q("editCredit");
+  const editStatus = q("editStatus");
+  const edit_AddCoursesBtn = q("edit_AddCoursesBtn");
+  const edit_AddCoursesSelect = q("edit_AddCoursesSelect");
+  const editCoursesBody = q("editCoursesBody");
+  const editForm = q("editForm");
+  const editIndexInput = q("editIndex");
 
-  const toastEl = document.getElementById("successToast");
-  const toastBody = toastEl.querySelector(".toast-body");
-  const toast = new bootstrap.Toast(toastEl);
+  // view / delete / toast
+  const viewModalEl = q("viewModal");
+  const deleteModalEl = q("deleteModal");
+  const toastEl = q("successToast");
+  const toastBody = toastEl ? toastEl.querySelector(".toast-body") : null;
 
+  // Bootstrap modal wrappers (guarded)
+  const viewModal = viewModalEl ? new bootstrap.Modal(viewModalEl) : null;
+  const addModal = addModalEl ? new bootstrap.Modal(addModalEl) : null;
+  const editModal = editModalEl ? new bootstrap.Modal(editModalEl) : null;
+  const deleteModal = deleteModalEl ? new bootstrap.Modal(deleteModalEl) : null;
+  const toast = toastEl ? new bootstrap.Toast(toastEl) : null;
+
+  /* ===========================
+     State variables
+     =========================== */
   let currentPage = 1;
-  let rowsPerPage = parseInt(rowsPerPageSelect.value, 10) || 3;
+  let rowsPerPage = rowsPerPageSelect ? parseInt(rowsPerPageSelect.value, 10) || 3 : 3;
   let deleteIndex = null;
 
-  // ===== Toast =====
+  /* ===========================
+     Utilities
+     =========================== */
+  const safe = (fn) => { try { return fn(); } catch (_) { return null; } };
+
   function showToast(msg) {
+    if (!toast || !toastBody) {
+      // fallback alert if toast not present
+      // eslint-disable-next-line no-alert
+      alert(msg);
+      return;
+    }
     toastBody.textContent = msg;
     toast.show();
   }
 
-  // ===== HTML Escape Utility =====
   function escapeHtml(str) {
     return (str ?? "")
       .toString()
@@ -181,135 +227,44 @@ document.addEventListener("DOMContentLoaded", () => {
       .replaceAll("'", "&#39;");
   }
 
-  // ===== Dropdown population helpers for a modal (prefix = 'add' or 'edit') =====
-  function populateModalDropdowns(prefix) {
-    const facultyEl = prefix === "add" ? addFaculty : editFaculty;
-    const programmeEl = prefix === "add" ? addProgramme : editProgramme;
-    const addCoursesSelectEl = prefix === "add" ? add_AddCoursesSelect : edit_AddCoursesSelect;
-    const studyEl = prefix === "add" ? addStudy : editStudy;
-    const levelEl = prefix === "add" ? addLevel : editLevel;
-    const statusEl = prefix === "add" ? addStatus : editStatus;
-
-    facultyEl.innerHTML =
-      `<option value="">-- Please Select --</option>` +
-      Object.keys(facultyProgrammes)
-        .map(f => `<option value="${f}">${f}</option>`)
-        .join("");
-
-    // also populate programme options (depends on faculty selection)
-    updateProgrammeOptionsFor(prefix);
-
-    // Study Dropdown
-    studyEl.innerHTML = `
-      <option value="">-- Please Select --</option>
-      <option value="Research">Research</option>
-      <option value="Coursework">Coursework</option>
-    `;
-
-    // Level Dropdown
-    levelEl.innerHTML = `
-      <option value="">-- Please Select --</option>
-      <option value="Master">Master</option>
-      <option value="PhD">PhD</option>
-    `;
-
-    // Status Dropdown
-    statusEl.innerHTML = `
-      <option value="">-- Please Select --</option>
-      <option value="Active">Active</option>
-      <option value="Inactive">Inactive</option>
-    `;
-  }
-
-  function updateProgrammeOptionsFor(prefix) {
-    const facultyEl = prefix === "add" ? addFaculty : editFaculty;
-    const programmeEl = prefix === "add" ? addProgramme : editProgramme;
-    const addCoursesSelectEl = prefix === "add" ? add_AddCoursesSelect : edit_AddCoursesSelect;
-    const selectedFaculty = facultyEl.value;
-    const related = facultyProgrammes[selectedFaculty] || [];
-    programmeEl.innerHTML =
-      `<option value="">-- Please Select --</option>` +
-      related.map(p => `<option value="${p}">${p}</option>`).join("");
-    addCoursesSelectEl.innerHTML =
-      `<option value="">-- Choose --</option>` +
-      related.map(p => `<option value="${p}">${p}</option>`).join("");
-  }
-
-  // ===== Auto-set Credit Based on Programme (for both modals) =====
-  function setupProgrammeChangeHandlers() {
-    addProgramme.addEventListener("change", () => {
-      const selectedProgramme = addProgramme.value;
-      if (programmeCredits[selectedProgramme] !== undefined) {
-        addCredit.value = programmeCredits[selectedProgramme];
-      } else {
-        addCredit.value = "";
-      }
-    });
-    editProgramme.addEventListener("change", () => {
-      const selectedProgramme = editProgramme.value;
-      if (programmeCredits[selectedProgramme] !== undefined) {
-        editCredit.value = programmeCredits[selectedProgramme];
-      } else {
-        editCredit.value = "";
-      }
-    });
-  }
-
-  // faculty change updates programme options for each modal
-  function setupFacultyChangeHandlers() {
-    addFaculty.addEventListener("change", () => updateProgrammeOptionsFor("add"));
-    editFaculty.addEventListener("change", () => updateProgrammeOptionsFor("edit"));
-  }
-
-  // ===== Table Rendering =====
-  function renderTable() {
-    const searchVal = (searchInput.value || "").toLowerCase();
-    const filtered = data.filter(r =>
-      [r.faculty, r.study, r.level, r.programme, r.status]
-        .some(v => (v || "").toLowerCase().includes(searchVal))
-    );
-
-    const totalPages = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
-    if (currentPage > totalPages) currentPage = totalPages;
-
-    const start = (currentPage - 1) * rowsPerPage;
-    const paginated = filtered.slice(start, start + rowsPerPage);
-
-    if (paginated.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="8" class="text-muted py-3">No matching records found</td></tr>`;
-    } else {
-      tableBody.innerHTML = paginated.map((r, i) => `
-        <tr>
-          <td class="fw-medium">${start + i + 1}</td>
-          <td class="text-start">${escapeHtml(r.faculty)}</td>
-          <td>${escapeHtml(r.study)}</td>
-          <td>${escapeHtml(r.level)}</td>
-          <td>${escapeHtml(r.programme)}</td>
-          <td>${escapeHtml(String(r.credit))}</td>
-          <td><span class="badge ${r.status === "Active" ? "bg-success" : "bg-secondary"}">${escapeHtml(r.status)}</span></td>
-          <td>
-            <div class="d-flex justify-content-center gap-1">
-              <button class="btn btn-info btn-sm" data-index="${start + i}" data-action="view"><i class="fa fa-eye"></i></button>
-              <button class="btn btn-warning btn-sm" data-index="${start + i}" data-action="edit"><i class="fa fa-pen"></i></button>
-              <button class="btn btn-danger btn-sm" data-index="${start + i}" data-action="delete"><i class="fa fa-trash"></i></button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
+  function saveData() {
+    try {
+      localStorage.setItem("prereqData", JSON.stringify(data));
+    } catch (e) {
+      console.warn("Failed to save data:", e);
     }
-
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
   }
 
-  // ===== Utilities for courses table (prefix-aware) =====
+  function loadData() {
+    const stored = localStorage.getItem("prereqData");
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length >= 0) {
+          data = parsed;
+          return;
+        }
+      } catch (e) {
+        console.warn("Failed to parse stored data:", e);
+      }
+    }
+    // fallback to defaults
+    data = [...defaultData.map(d => ({ ...d, courses: (d.courses || []).map(c => ({ ...c })) }))];
+    saveData();
+  }
+
+  /* ===========================
+     Courses table helpers
+     =========================== */
   function clearCoursesTableFor(prefix) {
     const body = prefix === "add" ? addCoursesBody : editCoursesBody;
+    if (!body) return;
     body.innerHTML = "";
   }
 
-  function appendCourseRowFor(prefix, code, name, credit) {
+  function appendCourseRowFor(prefix, code = "", name = "", credit = "") {
     const body = prefix === "add" ? addCoursesBody : editCoursesBody;
+    if (!body) return;
     const tr = document.createElement("tr");
     tr.dataset.code = code || "";
     tr.innerHTML = `
@@ -327,275 +282,516 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function refreshCourseNumbersFor(prefix) {
     const body = prefix === "add" ? addCoursesBody : editCoursesBody;
+    if (!body) return;
     Array.from(body.querySelectorAll("tr")).forEach((tr, idx) => {
       const cell = tr.querySelector("td:first-child");
       if (cell) cell.textContent = idx + 1;
     });
   }
 
-  // Delegated delete for course rows inside modals (both)
-  addCoursesBody.addEventListener("click", (e) => {
-    const btn = e.target.closest(".btn-delete-course");
-    if (!btn) return;
-    const tr = btn.closest("tr");
-    tr.remove();
-    refreshCourseNumbersFor("add");
-  });
-  editCoursesBody.addEventListener("click", (e) => {
-    const btn = e.target.closest(".btn-delete-course");
-    if (!btn) return;
-    const tr = btn.closest("tr");
-    tr.remove();
-    refreshCourseNumbersFor("edit");
-  });
-
-  // ===== Add default courses into modal when Add+ clicked =====
-  function setupAddCourseDefaultsHandlers() {
-    add_AddCoursesBtn.addEventListener("click", () => {
-      const chosen = add_AddCoursesSelect.value;
-      if (!chosen) {
-        showToast("Select a programme to add its default courses.");
-        return;
-      }
-      const facultyVal = addFaculty.value;
-      if (facultyVal !== "Faculty of Modern Language and Communication") {
-        showToast("Default courses currently available only for Faculty of Modern Language and Communication.");
-        return;
-      }
-      const list = programmeCourses[chosen] || [];
-      if (!list.length) {
-        showToast("No default courses defined for this programme.");
-        return;
-      }
-      list.forEach(item => {
-        const exists = Array.from(addCoursesBody.querySelectorAll("tr")).some(tr => tr.dataset.code === item.code);
-        if (!exists) appendCourseRowFor("add", item.code, item.name, item.credit);
-      });
+  // delegated course-delete
+  if (addCoursesBody) {
+    addCoursesBody.addEventListener("click", (e) => {
+      const btn = e.target.closest(".btn-delete-course");
+      if (!btn) return;
+      btn.closest("tr")?.remove();
       refreshCourseNumbersFor("add");
-      showToast("Default courses added to the record (you can delete individual rows).");
     });
-
-    edit_AddCoursesBtn.addEventListener("click", () => {
-      const chosen = edit_AddCoursesSelect.value;
-      if (!chosen) {
-        showToast("Select a programme to add its default courses.");
-        return;
-      }
-      const facultyVal = editFaculty.value;
-      if (facultyVal !== "Faculty of Modern Language and Communication") {
-        showToast("Default courses currently available only for Faculty of Modern Language and Communication.");
-        return;
-      }
-      const list = programmeCourses[chosen] || [];
-      if (!list.length) {
-        showToast("No default courses defined for this programme.");
-        return;
-      }
-      list.forEach(item => {
-        const exists = Array.from(editCoursesBody.querySelectorAll("tr")).some(tr => tr.dataset.code === item.code);
-        if (!exists) appendCourseRowFor("edit", item.code, item.name, item.credit);
-      });
+  }
+  if (editCoursesBody) {
+    editCoursesBody.addEventListener("click", (e) => {
+      const btn = e.target.closest(".btn-delete-course");
+      if (!btn) return;
+      btn.closest("tr")?.remove();
       refreshCourseNumbersFor("edit");
-      showToast("Default courses added to the record (you can delete individual rows).");
     });
   }
 
-  // ===== Form Submit Handlers =====
-  addForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  /* ===========================
+     Dropdown population
+     =========================== */
+  function populateModalDropdowns(prefix) {
+    const facultyEl = prefix === "add" ? addFaculty : editFaculty;
+    const programmeEl = prefix === "add" ? addProgramme : editProgramme;
+    const addCoursesSelectEl = prefix === "add" ? add_AddCoursesSelect : edit_AddCoursesSelect;
+    const studyEl = prefix === "add" ? addStudy : editStudy;
+    const levelEl = prefix === "add" ? addLevel : editLevel;
+    const statusEl = prefix === "add" ? addStatus : editStatus;
 
-    if (!addFaculty.value || !addProgramme.value) {
-      showToast("Please select both Faculty and Programme!");
-      return;
-    }
-    if (!addStudy.value || !addLevel.value || !addStatus.value) {
-      showToast("Please complete all dropdown selections!");
-      return;
-    }
-
-    const courses = Array.from(addCoursesBody.querySelectorAll("tr")).map(tr => ({
-      code: tr.querySelector(".course-code").value.trim(),
-      name: tr.querySelector(".course-name").value.trim(),
-      credit: parseInt(tr.querySelector(".course-credit").value, 10) || 0
-    }));
-
-    const record = {
-      faculty: addFaculty.value,
-      study: addStudy.value,
-      level: addLevel.value,
-      programme: addProgramme.value,
-      credit: parseInt(addCredit.value, 10) || 0,
-      status: addStatus.value,
-      courses
-    };
-
-    data.unshift(record);
-    saveData();
-    addModal.hide();
-    showToast("Record added!");
-    renderTable();
-  });
-
-  editForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const idx = editIndexInput.value;
-    const index = idx === "" ? null : Number(idx);
-    if (index === null || Number.isNaN(index) || index < 0 || index >= data.length) {
-      showToast("Invalid record index.");
-      return;
+    if (facultyEl) {
+      facultyEl.innerHTML =
+        `<option value="">-- Please Select --</option>` +
+        Object.keys(facultyProgrammes).map(f => `<option value="${f}">${f}</option>`).join("");
     }
 
-    if (!editFaculty.value || !editProgramme.value) {
-      showToast("Please select both Faculty and Programme!");
-      return;
+    updateProgrammeOptionsFor(prefix);
+
+    if (studyEl) {
+      studyEl.innerHTML = `
+        <option value="">-- Please Select --</option>
+        <option value="Research">Research</option>
+        <option value="Coursework">Coursework</option>
+      `;
     }
-    if (!editStudy.value || !editLevel.value || !editStatus.value) {
-      showToast("Please complete all dropdown selections!");
-      return;
+
+    if (levelEl) {
+      levelEl.innerHTML = `
+        <option value="">-- Please Select --</option>
+        <option value="Master">Master</option>
+        <option value="PhD">PhD</option>
+      `;
     }
 
-    const courses = Array.from(editCoursesBody.querySelectorAll("tr")).map(tr => ({
-      code: tr.querySelector(".course-code").value.trim(),
-      name: tr.querySelector(".course-name").value.trim(),
-      credit: parseInt(tr.querySelector(".course-credit").value, 10) || 0
-    }));
+    if (statusEl) {
+      statusEl.innerHTML = `
+        <option value="">-- Please Select --</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+      `;
+    }
 
-    const record = {
-      faculty: editFaculty.value,
-      study: editStudy.value,
-      level: editLevel.value,
-      programme: editProgramme.value,
-      credit: parseInt(editCredit.value, 10) || 0,
-      status: editStatus.value,
-      courses
-    };
+    // populate add/edit AddCoursesSelect too
+    if (addCoursesSelectEl) {
+      const facultyVal = facultyEl?.value || Object.keys(facultyProgrammes)[0];
+      const related = facultyProgrammes[facultyVal] || [];
+      addCoursesSelectEl.innerHTML = `<option value="">-- Choose --</option>` + related.map(p => `<option value="${p}">${p}</option>`).join("");
+    }
 
-    data[index] = record;
-    saveData();
-    editModal.hide();
-    showToast("Record updated!");
-    renderTable();
-  });
+    if (programmeEl && programmeEl.value) {
+      // if programme pre-selected, we should also set programme-dependent values
+      applyProgrammeDefaultsTo(prefix, programmeEl.value);
+    }
+  }
 
-  // ===== Delegated Table Buttons =====
-  tableBody.addEventListener("click", e => {
-    const btn = e.target.closest("button[data-action]");
-    if (!btn) return;
+  function updateProgrammeOptionsFor(prefix) {
+    const facultyEl = prefix === "add" ? addFaculty : editFaculty;
+    const programmeEl = prefix === "add" ? addProgramme : editProgramme;
+    const addCoursesSelectEl = prefix === "add" ? add_AddCoursesSelect : edit_AddCoursesSelect;
+    const selectedFaculty = facultyEl?.value || Object.keys(facultyProgrammes)[0];
+    const related = facultyProgrammes[selectedFaculty] || [];
 
-    const action = btn.getAttribute("data-action");
-    const index = Number(btn.getAttribute("data-index"));
-    if (Number.isNaN(index) || index < 0 || index >= data.length) return;
+    if (programmeEl) {
+      programmeEl.innerHTML = `<option value="">-- Please Select --</option>` + related.map(p => `<option value="${p}">${p}</option>`).join("");
+    }
 
-    if (action === "view") viewRecord(index);
-    if (action === "edit") editRecord(index);
-    if (action === "delete") confirmDelete(index);
-  });
+    if (addCoursesSelectEl) {
+      addCoursesSelectEl.innerHTML = `<option value="">-- Choose --</option>` + related.map(p => `<option value="${p}">${p}</option>`).join("");
+    }
+  }
 
-  // ===== View Record =====
+  /* ===========================
+     Auto-fill (programme -> all related fields + courses)
+     =========================== */
+  function applyProgrammeDefaultsTo(prefix, programmeValue) {
+    if (!programmeValue) return;
+    const def = programmeDefaults[programmeValue];
+    if (!def) return;
+
+    if (prefix === "add") {
+      if (addFaculty) addFaculty.value = def.faculty || "";
+      if (addStudy) addStudy.value = def.study || "";
+      if (addLevel) addLevel.value = def.level || "";
+      if (addCredit) addCredit.value = def.credit ?? "";
+      if (addStatus) addStatus.value = def.status || "";
+
+      // populate courses (replace current)
+      clearCoursesTableFor("add");
+      (def.courses || []).forEach(c => appendCourseRowFor("add", c.code, c.name, c.credit));
+    } else {
+      if (editFaculty) editFaculty.value = def.faculty || "";
+      if (editStudy) editStudy.value = def.study || "";
+      if (editLevel) editLevel.value = def.level || "";
+      if (editCredit) editCredit.value = def.credit ?? "";
+      if (editStatus) editStatus.value = def.status || "";
+
+      clearCoursesTableFor("edit");
+      (def.courses || []).forEach(c => appendCourseRowFor("edit", c.code, c.name, c.credit));
+    }
+  }
+
+  function setupProgrammeChangeHandlers() {
+    if (addProgramme) {
+      addProgramme.addEventListener("change", () => {
+        const selectedProgramme = addProgramme.value;
+        // set credit if available (backwards compat)
+        if (programmeCredits[selectedProgramme] !== undefined && addCredit) {
+          addCredit.value = programmeCredits[selectedProgramme];
+        } else if (addCredit) {
+          addCredit.value = "";
+        }
+        // apply the broader default (faculty, study, level, status, courses)
+        applyProgrammeDefaultsTo("add", selectedProgramme);
+      });
+    }
+
+    if (editProgramme) {
+      editProgramme.addEventListener("change", () => {
+        const selectedProgramme = editProgramme.value;
+        if (programmeCredits[selectedProgramme] !== undefined && editCredit) {
+          editCredit.value = programmeCredits[selectedProgramme];
+        } else if (editCredit) {
+          editCredit.value = "";
+        }
+        applyProgrammeDefaultsTo("edit", selectedProgramme);
+      });
+    }
+  }
+
+  function setupFacultyChangeHandlers() {
+    if (addFaculty) addFaculty.addEventListener("change", () => updateProgrammeOptionsFor("add"));
+    if (editFaculty) editFaculty.addEventListener("change", () => updateProgrammeOptionsFor("edit"));
+  }
+
+  /* ===========================
+     Add default courses buttons (Add+)
+     =========================== */
+  function setupAddCourseDefaultsHandlers() {
+    if (add_AddCoursesBtn && add_AddCoursesSelect && addCoursesBody) {
+      add_AddCoursesBtn.addEventListener("click", () => {
+        const chosen = add_AddCoursesSelect.value;
+        if (!chosen) {
+          showToast("Select a programme to add its default courses.");
+          return;
+        }
+        const facultyVal = addFaculty?.value;
+        if (facultyVal && facultyVal !== "Faculty of Modern Language and Communication") {
+          showToast("Default courses currently available only for Faculty of Modern Language and Communication.");
+          return;
+        }
+        const list = programmeCourses[chosen] || [];
+        if (!list.length) {
+          showToast("No default courses defined for this programme.");
+          return;
+        }
+        list.forEach(item => {
+          const exists = Array.from(addCoursesBody.querySelectorAll("tr")).some(tr => tr.dataset.code === item.code);
+          if (!exists) appendCourseRowFor("add", item.code, item.name, item.credit);
+        });
+        refreshCourseNumbersFor("add");
+        showToast("Default courses added to the record (you can delete individual rows).");
+      });
+    }
+
+    if (edit_AddCoursesBtn && edit_AddCoursesSelect && editCoursesBody) {
+      edit_AddCoursesBtn.addEventListener("click", () => {
+        const chosen = edit_AddCoursesSelect.value;
+        if (!chosen) {
+          showToast("Select a programme to add its default courses.");
+          return;
+        }
+        const facultyVal = editFaculty?.value;
+        if (facultyVal && facultyVal !== "Faculty of Modern Language and Communication") {
+          showToast("Default courses currently available only for Faculty of Modern Language and Communication.");
+          return;
+        }
+        const list = programmeCourses[chosen] || [];
+        if (!list.length) {
+          showToast("No default courses defined for this programme.");
+          return;
+        }
+        list.forEach(item => {
+          const exists = Array.from(editCoursesBody.querySelectorAll("tr")).some(tr => tr.dataset.code === item.code);
+          if (!exists) appendCourseRowFor("edit", item.code, item.name, item.credit);
+        });
+        refreshCourseNumbersFor("edit");
+        showToast("Default courses added to the record (you can delete individual rows).");
+      });
+    }
+  }
+
+  /* ===========================
+     Table rendering (with filtering & correct index mapping)
+     =========================== */
+  function renderTable() {
+    if (!tableBody) return;
+    const searchVal = (searchInput?.value || "").toLowerCase();
+
+    // compute filtered original indices (so actions map to correct data index)
+    const filteredIndices = data
+      .map((rec, idx) => ({ rec, idx }))
+      .filter(({ rec }) =>
+        [rec.faculty, rec.study, rec.level, rec.programme, rec.status]
+          .some(v => (v || "").toLowerCase().includes(searchVal))
+      )
+      .map(o => o.idx);
+
+    const totalPages = Math.max(1, Math.ceil(filteredIndices.length / rowsPerPage));
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const pageSlice = filteredIndices.slice(start, start + rowsPerPage);
+
+    if (pageSlice.length === 0) {
+      tableBody.innerHTML = `<tr><td colspan="8" class="text-muted py-3">No matching records found</td></tr>`;
+    } else {
+      tableBody.innerHTML = pageSlice.map((origIndex, i) => {
+        const r = data[origIndex];
+        return `
+          <tr>
+            <td class="fw-medium">${start + i + 1}</td>
+            <td class="text-start">${escapeHtml(r.faculty)}</td>
+            <td>${escapeHtml(r.study)}</td>
+            <td>${escapeHtml(r.level)}</td>
+            <td>${escapeHtml(r.programme)}</td>
+            <td>${escapeHtml(String(r.credit))}</td>
+            <td><span class="badge ${r.status === "Active" ? "bg-success" : "bg-secondary"}">${escapeHtml(r.status)}</span></td>
+            <td>
+              <div class="d-flex justify-content-center gap-1">
+                <button class="btn btn-info btn-sm" data-index="${origIndex}" data-action="view"><i class="fa fa-eye"></i></button>
+                <button class="btn btn-warning btn-sm" data-index="${origIndex}" data-action="edit"><i class="fa fa-pen"></i></button>
+                <button class="btn btn-danger btn-sm" data-index="${origIndex}" data-action="delete"><i class="fa fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    if (prevBtn) prevBtn.disabled = currentPage === 1;
+    if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+  }
+
+  /* ===========================
+     Table button delegation (view/edit/delete)
+     =========================== */
+  if (tableBody) {
+    tableBody.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+      const action = btn.getAttribute("data-action");
+      const index = Number(btn.getAttribute("data-index"));
+      if (Number.isNaN(index) || index < 0 || index >= data.length) return;
+      if (action === "view") viewRecord(index);
+      if (action === "edit") editRecord(index);
+      if (action === "delete") confirmDelete(index);
+    });
+  }
+
+  /* ===========================
+     View record
+     =========================== */
   function viewRecord(i) {
     const r = data[i];
-    document.getElementById("viewDetails").innerHTML = `
-      <tr><th style="width:35%;">Faculty</th><td>${escapeHtml(r.faculty)}</td></tr>
-      <tr><th>Type of Study</th><td>${escapeHtml(r.study)}</td></tr>
-      <tr><th>Level of Study</th><td>${escapeHtml(r.level)}</td></tr>
-      <tr><th>Programme</th><td>${escapeHtml(r.programme)}</td></tr>
-      <tr><th>Min Credit Hours</th><td>${escapeHtml(String(r.credit))}</td></tr>
-      <tr><th>Status</th><td><span class="badge ${r.status === "Active" ? "bg-success" : "bg-secondary"}">${escapeHtml(r.status)}</span></td></tr>
-    `;
-
-    // render courses in view modal
-    const viewCoursesBody = document.getElementById("viewCoursesBody");
-    viewCoursesBody.innerHTML = "";
-    if (Array.isArray(r.courses) && r.courses.length) {
-      r.courses.forEach((c, idx) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td class="text-center">${idx + 1}</td><td>${escapeHtml(c.code)}</td><td>${escapeHtml(c.name)}</td><td class="text-center">${escapeHtml(String(c.credit))}</td>`;
-        viewCoursesBody.appendChild(tr);
-      });
-      document.getElementById("viewCoursesWrap").style.display = "";
-    } else {
-      document.getElementById("viewCoursesWrap").style.display = "none";
+    if (!r) return;
+    const viewDetails = q("viewDetails");
+    if (viewDetails) {
+      viewDetails.innerHTML = `
+        <tr><th style="width:35%;">Faculty</th><td>${escapeHtml(r.faculty)}</td></tr>
+        <tr><th>Type of Study</th><td>${escapeHtml(r.study)}</td></tr>
+        <tr><th>Level of Study</th><td>${escapeHtml(r.level)}</td></tr>
+        <tr><th>Programme</th><td>${escapeHtml(r.programme)}</td></tr>
+        <tr><th>Min Credit Hours</th><td>${escapeHtml(String(r.credit))}</td></tr>
+        <tr><th>Status</th><td><span class="badge ${r.status === "Active" ? "bg-success" : "bg-secondary"}">${escapeHtml(r.status)}</span></td></tr>
+      `;
     }
 
-    viewModal.show();
+    const viewCoursesBody = q("viewCoursesBody");
+    if (viewCoursesBody) {
+      viewCoursesBody.innerHTML = "";
+      if (Array.isArray(r.courses) && r.courses.length) {
+        r.courses.forEach((c, idx) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td class="text-center">${idx + 1}</td><td>${escapeHtml(c.code)}</td><td>${escapeHtml(c.name)}</td><td class="text-center">${escapeHtml(String(c.credit))}</td>`;
+          viewCoursesBody.appendChild(tr);
+        });
+        const wrap = q("viewCoursesWrap");
+        if (wrap) wrap.style.display = "";
+      } else {
+        const wrap = q("viewCoursesWrap");
+        if (wrap) wrap.style.display = "none";
+      }
+    }
+
+    if (viewModal) viewModal.show();
   }
 
-  // ===== Edit Record =====
+  /* ===========================
+     Edit record
+     =========================== */
   function editRecord(i) {
     const r = data[i];
+    if (!r || !editForm) return;
+
     editIndexInput.value = i;
     populateModalDropdowns("edit");
+
     // fill values
-    editFaculty.value = r.faculty;
+    if (editFaculty) editFaculty.value = r.faculty;
     updateProgrammeOptionsFor("edit");
-    editStudy.value = r.study;
-    editLevel.value = r.level;
-    editProgramme.value = r.programme;
-    editCredit.value = r.credit;
-    editStatus.value = r.status;
+    if (editStudy) editStudy.value = r.study;
+    if (editLevel) editLevel.value = r.level;
+    if (editProgramme) editProgramme.value = r.programme;
+    if (editCredit) editCredit.value = r.credit;
+    if (editStatus) editStatus.value = r.status;
 
     // load courses
     clearCoursesTableFor("edit");
     if (Array.isArray(r.courses)) {
       r.courses.forEach(c => appendCourseRowFor("edit", c.code, c.name, c.credit));
     }
-    editModal.show();
+
+    if (editModal) editModal.show();
   }
 
-  // ===== Delete Record =====
+  /* ===========================
+     Delete record
+     =========================== */
   function confirmDelete(i) {
     deleteIndex = i;
-    deleteModal.show();
+    if (deleteModal) deleteModal.show();
   }
 
-  document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
-    if (deleteIndex !== null && deleteIndex >= 0 && deleteIndex < data.length) {
-      data.splice(deleteIndex, 1);
+  const confirmDeleteBtn = q("confirmDeleteBtn");
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener("click", () => {
+      if (deleteIndex !== null && deleteIndex >= 0 && deleteIndex < data.length) {
+        data.splice(deleteIndex, 1);
+        saveData();
+        deleteModal?.hide();
+        renderTable();
+        showToast("Record deleted!");
+        deleteIndex = null;
+      }
+    });
+  }
+
+  /* ===========================
+     Add / Edit submit handlers
+     =========================== */
+  if (addForm) {
+    addForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      if (!addFaculty?.value || !addProgramme?.value) {
+        showToast("Please select both Faculty and Programme!");
+        return;
+      }
+      if (!addStudy?.value || !addLevel?.value || !addStatus?.value) {
+        showToast("Please complete all dropdown selections!");
+        return;
+      }
+
+      const courses = Array.from(addCoursesBody?.querySelectorAll("tr") || []).map(tr => ({
+        code: tr.querySelector(".course-code")?.value.trim() || "",
+        name: tr.querySelector(".course-name")?.value.trim() || "",
+        credit: parseInt(tr.querySelector(".course-credit")?.value, 10) || 0,
+      }));
+
+      const record = {
+        faculty: addFaculty.value,
+        study: addStudy.value,
+        level: addLevel.value,
+        programme: addProgramme.value,
+        credit: parseInt(addCredit?.value, 10) || 0,
+        status: addStatus.value,
+        courses,
+      };
+
+      data.unshift(record);
       saveData();
-      deleteModal.hide();
+      addModal?.hide();
+      showToast("Record added!");
+      currentPage = 1;
       renderTable();
-      showToast("Record deleted!");
-      deleteIndex = null;
-    }
-  });
+    });
+  }
 
-  // ===== Pagination =====
-  rowsPerPageSelect.addEventListener("change", () => {
-    rowsPerPage = parseInt(rowsPerPageSelect.value, 10) || 3;
-    currentPage = 1;
-    renderTable();
-  });
+  if (editForm) {
+    editForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-  prevBtn.addEventListener("click", () => {
-    if (currentPage > 1) {
-      currentPage--;
+      const idx = editIndexInput?.value;
+      const index = idx === "" ? null : Number(idx);
+      if (index === null || Number.isNaN(index) || index < 0 || index >= data.length) {
+        showToast("Invalid record index.");
+        return;
+      }
+
+      if (!editFaculty?.value || !editProgramme?.value) {
+        showToast("Please select both Faculty and Programme!");
+        return;
+      }
+      if (!editStudy?.value || !editLevel?.value || !editStatus?.value) {
+        showToast("Please complete all dropdown selections!");
+        return;
+      }
+
+      const courses = Array.from(editCoursesBody?.querySelectorAll("tr") || []).map(tr => ({
+        code: tr.querySelector(".course-code")?.value.trim() || "",
+        name: tr.querySelector(".course-name")?.value.trim() || "",
+        credit: parseInt(tr.querySelector(".course-credit")?.value, 10) || 0,
+      }));
+
+      const record = {
+        faculty: editFaculty.value,
+        study: editStudy.value,
+        level: editLevel.value,
+        programme: editProgramme.value,
+        credit: parseInt(editCredit?.value, 10) || 0,
+        status: editStatus.value,
+        courses,
+      };
+
+      data[index] = record;
+      saveData();
+      editModal?.hide();
+      showToast("Record updated!");
       renderTable();
-    }
-  });
+    });
+  }
 
-  nextBtn.addEventListener("click", () => {
-    const totalPages = Math.max(1, Math.ceil(data.length / rowsPerPage));
-    if (currentPage < totalPages) {
+  /* ===========================
+     Pagination + search wiring
+     =========================== */
+  if (rowsPerPageSelect) {
+    rowsPerPageSelect.addEventListener("change", () => {
+      rowsPerPage = parseInt(rowsPerPageSelect.value, 10) || 3;
+      currentPage = 1;
+      renderTable();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+      }
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
       currentPage++;
       renderTable();
-    }
-  });
+    });
+  }
 
-  searchInput.addEventListener("input", () => {
-    currentPage = 1;
-    renderTable();
-  });
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      currentPage = 1;
+      renderTable();
+    });
+  }
 
-  // ===== Add button opens Add Modal (separate) =====
-  document.getElementById("addBtn").addEventListener("click", () => {
-    addForm.reset();
-    clearCoursesTableFor("add");
-    populateModalDropdowns("add");
-    addModal.show();
-  });
+  /* ===========================
+     Add button opens Add Modal
+     =========================== */
+  const addBtn = q("addBtn");
+  if (addBtn) {
+    addBtn.addEventListener("click", () => {
+      addForm?.reset();
+      clearCoursesTableFor("add");
+      populateModalDropdowns("add");
+      // ensure programme options reflect faculty default
+      if (addFaculty && !addFaculty.value) addFaculty.value = Object.keys(facultyProgrammes)[0];
+      updateProgrammeOptionsFor("add");
+      addModal?.show();
+    });
+  }
 
-  // Developer Reset Button
+  /* ===========================
+     Developer reset button
+     =========================== */
   const resetBtn = document.createElement("button");
   resetBtn.id = "resetBtn";
   resetBtn.className = "btn btn-outline-secondary btn-sm position-fixed";
@@ -605,19 +801,21 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(resetBtn);
 
   resetBtn.addEventListener("click", () => {
+    // eslint-disable-next-line no-alert
     if (confirm("Reset all data to default values?")) {
       localStorage.removeItem("prereqData");
-      data = [...defaultData];
+      data = [...defaultData.map(d => ({ ...d, courses: d.courses.map(c => ({ ...c })) }))];
       saveData();
       renderTable();
       showToast("Data reset to default!");
     }
   });
 
-  // ===== Init wiring =====
+  /* ===========================
+     Init
+     =========================== */
   function init() {
     loadData();
-    // populate both modals dropdowns
     populateModalDropdowns("add");
     populateModalDropdowns("edit");
     setupProgrammeChangeHandlers();
