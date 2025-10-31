@@ -139,3 +139,12 @@ input:focus, select:focus, textarea:focus {
 
 /* ensure modal large spacing for courses table */
 .modal-dialog.modal-lg { max-width: 920px; }
+
+/*to close field that not important but can't
+delete it parmanent because it will affect system*/
+#add_AddCoursesBtn,
+#add_AddCoursesSelect,
+#edit_AddCoursesBtn,
+#edit_AddCoursesSelect {
+  display: none !important;
+}
