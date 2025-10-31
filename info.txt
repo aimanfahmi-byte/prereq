@@ -1,7 +1,58 @@
-"Add Record" button
-    - user boleh add new record dan akan disimpan di javascript bagi mock up ini.
-    - data tidak akan hilang walupun refresh.
+>> Project Title: Prerequisite Management UI
+-This mockup is a front-end interface for managing academic prerequisites.
+-It allows users to add, edit, view, delete, search, and reset data.
+-Designed with Bootstrap 5, FontAwesome, and a light, airy style.
 
-"Reset Data" button
-    - ada di luar widget.
-    - untuk developer reset data asal semula.
+>> Main Files
+-index.html — structure and modals for Add/Edit/View/Delete.
+-style.css — layout and design (Style A: clean and light).
+-script.js — handles UI logic, form control, data display, export, and reset.
+
+>> Key Features
+-Add new records using a dedicated “Add Record” modal.
+-Edit existing entries through a separate “Edit Record” modal.
+-View details and associated course lists in a “View Record” modal.
+-Delete records with confirmation through a “Delete Modal”.
+-Search, pagination, export to PDF/Excel, and reset to default supported.
+
+>> Reset Button
+-The “Reset” button restores the table to its default dataset.
+-It clears any custom or newly added records.
+-Useful for testing and returning to the original mock data quickly.
+
+>> Design Style (Style A)
+-Light and modern color palette: white, blue, and soft gray.
+-Rounded corners, soft shadows, and spacious table layout.
+-Focus on readability, minimal lines, and responsive spacing.
+
+>> Tables and Layout
+-Tables have separated rows with subtle hover animations.
+-Headers use a soft blue background and bold text.
+-Actions include view, edit, delete, and reset options.
+
+>> Modals
+-Each modal uses Bootstrap’s default layout with custom width.
+-Add/Edit modals support adding course lists dynamically.
+-View modal shows full details in read-only format.
+
+>> Forms and Inputs
+-Uses select elements for faculty, study type, level, programme, and status.
+-“Min Credit Hours” input is read-only and auto-calculated.
+-Add/Edit course lists allow adding or removing course rows.
+
+>> Buttons & Icons
+-Primary: blue for add/save actions.
+-Warning: yellow for edit.
+-Danger: red for delete or PDF export.
+-Secondary/Outline: for reset or navigation actions.
+-FontAwesome icons used for visual cues.
+
+>> Toast Notifications
+-Appears on the top-right corner.
+-Used to show success messages after save/update/delete/reset.
+-Auto-dismisses with close button.
+
+>> Pagination & Search
+-Search filters table results in real-time.
+-Pagination controls include previous/next and rows per page selector.
+-Default display is 3, 5, 10 rows per page.
